@@ -2,190 +2,745 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ajay Kumar Singh - Resume</title>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajay Kumar Singh — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
-     img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #555;
-        }
+    :root {
+      --bg: #0c0c0f;
+      --surface: #13131a;
+      --surface2: #1a1a24;
+      --accent: #6ee7b7;
+      --accent2: #818cf8;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(255,255,255,0.07);
+      --glow: rgba(110, 231, 183, 0.15);
+    }
 
-        .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    padding: 10px;
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.profile-header img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #555;
-    margin-right: 20px;
-}
+    html { scroll-behavior: smooth; }
 
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 100px;
-}
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-.contact-info span {
-    margin: 5px 0;
-}
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
 
-.contact-info a {
-    color: #0a66c2;
-    text-decoration: none;
-}
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(12,12,15,0.7);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
 
-.contact-info a:hover {
-    text-decoration: underline;
-}
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
 
-.resume-header hr {
-    margin-top: 10px;
-}
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
 
-     
+    /* ── HAMBURGER ── */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(110,231,183,0.08) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid rgba(110,231,183,0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1.hero-name {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(2.2rem, 7vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-name .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      margin-top: 1rem;
+      max-width: 500px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      margin-top: 2.5rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.6rem;
+      border-radius: 8px;
+      font-size: 0.875rem; font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0c0c0f;
+      border: none;
+    }
+    .btn-primary:hover { background: #a7f3d0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(110,231,183,0.25); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-socials {
+      display: flex; gap: 1rem; margin-top: 2rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .social-link {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.2s;
+      font-size: 0.9rem;
+    }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); background: var(--glow); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px; height: 3px;
+      background: var(--accent);
+      margin-top: 0.75rem;
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+    }
+
+    .about-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border: 1px solid rgba(110,231,183,0.25);
+      border-radius: 16px;
+      transform: rotate(2deg);
+    }
+
+    .about-photo-wrap img {
+      width: 100%; max-width: 280px;
+      border-radius: 12px;
+      display: block;
+      position: relative;
+      z-index: 1;
+      filter: grayscale(20%);
+    }
+
+    .about-placeholder {
+      width: 100%; max-width: 280px;
+      aspect-ratio: 1;
+      background: var(--surface2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: var(--muted);
+      position: relative; z-index: 1;
+    }
+
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+
+    .info-chips {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .chip i { color: var(--accent); font-size: 0.7rem; }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card:hover { border-color: rgba(110,231,183,0.2); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+
+    .skill-card-icon {
+      font-size: 1.5rem; margin-bottom: 0.75rem;
+    }
+    .skill-card h4 {
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.75rem; font-family: 'Space Mono', monospace;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      font-size: 0.75rem; padding: 0.2rem 0.6rem;
+      background: var(--surface2); border-radius: 4px;
+      color: var(--text); border: 1px solid var(--border);
+    }
+
+    /* ── EDUCATION / TIMELINE ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(110,231,183,0.2);
+    }
+
+    .timeline-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.1em;
+      color: var(--accent); margin-bottom: 0.25rem;
+    }
+    .timeline-item h4 {
+      font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem;
+    }
+    .timeline-item p { font-size: 0.875rem; color: var(--muted); }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      display: flex; gap: 1.5rem;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .exp-card:hover { border-color: rgba(110,231,183,0.25); }
+    .exp-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: var(--surface2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0; color: var(--accent);
+    }
+    .exp-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .exp-info .exp-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .exp-info p { font-size: 0.875rem; color: var(--muted); }
+
+    /* ── ACHIEVEMENTS ── */
+    .ach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .ach-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .ach-card:hover { border-color: rgba(110,231,183,0.25); transform: translateY(-3px); }
+    .ach-card .ach-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .ach-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .ach-card p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── CERTIFICATIONS ── */
+    .cert-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .cert-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .cert-item:hover { border-color: rgba(110,231,183,0.3); background: var(--surface2); transform: translateX(4px); }
+    .cert-item i:first-child { color: var(--accent); width: 20px; text-align: center; }
+    .cert-item span { flex: 1; font-size: 0.9rem; }
+    .cert-item .cert-arrow { color: var(--muted); font-size: 0.75rem; }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-wrapper::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(110,231,183,0.06), transparent 60%);
+      pointer-events: none;
+    }
+    .contact-wrapper h3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem; margin-bottom: 0.75rem;
+    }
+    .contact-wrapper p { color: var(--muted); max-width: 420px; margin: 0 auto 2rem; }
+
+    .contact-links {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--surface); padding: 1.5rem; gap: 1.25rem; border-bottom: 1px solid var(--border); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo-wrap { display: flex; justify-content: center; }
+
+      section { padding: 3.5rem 1.25rem; }
+
+      .contact-wrapper { padding: 2rem 1.25rem; }
+      .exp-card { flex-direction: column; gap: 1rem; }
+    }
   </style>
-
 </head>
-
 <body>
-  <div class="resume">
-    <h1>Ajay Kumar Singh</h1>
-    <header class="resume-header">
-        <div class="profile-header">
-            <img src="Photo.jpg" alt="Photo">
-            <div class="contact-info">
-                <span><i class="fas fa-phone-alt"></i> +91 9110992828</span>
-                <span><i class="fas fa-envelope"></i> ajaykr29898@gmail.com</span>
-                <span><i class="fas fa-map-marker-alt"></i> Kolkata, India</span>
-                <span><i class="fab fa-github"></i> <a href="https://github.com/Ajay29898">Github</a></span>
-                <span><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/ajay-singh-8724282b8/">LinkedIn</a></span>
-            </div>
-        </div>
-        <hr>
-    </header>
-    
 
-    
-    <div class="resume-columns">
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">AKS<span style="color:var(--muted)">.</span>dev</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-      <div class="left-col">
-        
-        <section>
-          <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-          <div class="section-content">
-            
-            <div class="education-item">
-              <h3>B.Tech (Honors) in Information Technology <span class="year">2021 - 2024</span></h3>
-              <p>Future Institute of Engineering and Management, Kolkata</p>
-            </div>
-            
-            <div class="education-item">
-              <h3>Diploma in Computer Science &amp; Engineering <span class="year">2017 - 2020</span></h3>
-              <p>Government Polytechnic, Adityapur</p>
-            </div>
-           
-            <div class="education-item">
-                <h3>Higher Secondary (12th Grade) <span class="year">2017</span></h3>
-                <p>Pitts Modern School, Gomia</p>
-            </div>
-            
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">Available for Opportunities</div>
+    <h1 class="hero-name">
+      Ajay Kumar<br><span class="highlight">Singh</span>
+    </h1>
+    <p class="hero-subtitle">Full-Stack Java Developer · Spring Boot · React · DSA</p>
+    <div class="hero-cta">
+      <a href="mailto:ajaykr29898@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Get In Touch</a>
+      <a href="#about" class="btn btn-outline"><i class="fas fa-user"></i> About Me</a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/Ajay29898" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/ajay-singh-8724282b8/" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.geeksforgeeks.org/user/_ajay_singh/" target="_blank" class="social-link" title="GeeksforGeeks"><i class="fas fa-code"></i></a>
+      <a href="tel:+919110992828" class="social-link" title="Phone"><i class="fas fa-phone-alt"></i></a>
+    </div>
+  </section>
 
-            <div class="education-item">
-              <h3>Matriculation (10th Grade) <span class="year">2015</span></h3>
-              <p>Pitts Modern School, Gomia</p>
-            </div>
-          </div>
-        </section>
-        
-        <hr>
-        
-        <section>
-          <h2><i class="fas fa-briefcase"></i> Internship</h2>
-          <div class="section-content">
-            <div class="work-item">
-              <h3>SQL Developer Intern <span class="year">Oct 2019 - Nov 2019</span></h3>
-              <p>Central Coalfields Limited</p>
-            </div>
-          </div>
-        </section>
-        
-        <hr>
-
-        <section>
-            <h2><i class="fas fa-trophy"></i> Achievements</h2>
-            <div class="section-content">
-                <p>Elitmus Assessment - Score: 92 Percentile</p>
-                <p>CoCubes Assessment - Score: 590</p>
-                <p>GeeksforGeeks Profile - Current Coding Score: 550+ | Institute Rank: #58 | <a href="https://www.geeksforgeeks.org/user/_ajay_singh/?ref=header_profile" target="_blank">Profile Link</a></p>
-                <p>NCC Training - Rank: Cadet, Hazaribagh (Completed training at Old Army School, Ranchi, and obtained NCC 'A' Certificate).</p>
-            </div>
-        </section>
-        
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">01 — Introduction</p>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo-wrap reveal">
+        <!-- Replace Photo.jpg with your actual photo path -->
+        <div class="about-placeholder"><i class="fas fa-user"></i></div>
+        <!-- <img src="Photo.jpg" alt="Ajay Kumar Singh"> -->
       </div>
-      
-      <hr>
-      
-      <div class="right-col">
-    
-        <section>
-            <h2><i class="fas fa-code"></i> Skills</h2>
-            <div class="section-content">
-                <p><strong>Programming Languages:</strong> C++, Java, Python</p>
-                <p><strong>Front-End:</strong> HTML, CSS, JavaScript, Bootstrap, React</p>
-                <p><strong>Back-End:</strong> Java, JDBC, Spring Boot, Hibernate/JPA, SQL</p>
-                <p><strong>Other Skills:</strong> Git, MicroServices, Machine Learning, DSA, DBMS</p>
-            </div>
-        </section>
-        
-        
-        
-      <hr>
-
-      <section>
-        <h2><i class="fas fa-certificate"></i> Certificates</h2>
-        <div class="section-content">
-            <p><a href="https://example.com/link-to-web-development-certificate" target="_blank">Web Development</a></p>
-            <p><a href="https://example.com/link-to-spring-boot-certificate" target="_blank">Spring Boot</a></p>
-            <p><a href="https://example.com/link-to-microservices-certificate" target="_blank">Microservices</a></p>
-            <p><a href="https://example.com/link-to-mysql-certificate" target="_blank">MySQL</a></p>
+      <div class="about-text reveal">
+        <p>I'm a B.Tech graduate in Information Technology from Future Institute of Engineering and Management, Kolkata. I love building scalable full-stack applications using Java, Spring Boot, and React.</p>
+        <p>From a SQL Developer internship at Central Coalfields Limited to cracking 92 percentile in eLitmus, I enjoy challenging myself with real-world problems and competitive coding.</p>
+        <p>When I'm not coding, you'll find me reading, listening to music, or planning my next trip.</p>
+        <div class="info-chips">
+          <span class="chip"><i class="fas fa-map-marker-alt"></i> Kolkata, India</span>
+          <span class="chip"><i class="fas fa-graduation-cap"></i> B.Tech IT (2024)</span>
+          <span class="chip"><i class="fas fa-certificate"></i> NCC 'A' Certificate</span>
+          <span class="chip"><i class="fas fa-star"></i> GFG Rank #58 (Institute)</span>
         </div>
-    </section>
-    
-        
-      <hr>
-
-        <section>
-          <h2><i class="fas fa-language"></i> Languages</h2>
-          <div class="section-content">
-            <p>English (Professional)</p>
-            <p>Hindi (Native)</p>
-          </div>
-        </section>
-        
-      <hr>
-        <section>
-          <h2><i class="fas fa-heart"></i> Interests</h2>
-          <div class="section-content">
-            <p>Reading, Music, Traveling</p>
-          </div>
-        </section>
       </div>
     </div>
-  </div> 
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">02 — Expertise</p>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">⚙️</div>
+        <h4>Languages</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🎨</div>
+        <h4>Front-End</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Bootstrap</span>
+          <span class="skill-tag">React</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🔧</div>
+        <h4>Back-End</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Spring Boot</span>
+          <span class="skill-tag">Hibernate/JPA</span>
+          <span class="skill-tag">JDBC</span>
+          <span class="skill-tag">REST API</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🛠️</div>
+        <h4>Tools & Other</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Microservices</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">DSA</span>
+          <span class="skill-tag">DBMS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="reveal">
+      <p class="section-label">03 — Background</p>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-year">2021 – 2024</div>
+        <h4>B.Tech (Honors) in Information Technology</h4>
+        <p>Future Institute of Engineering and Management, Kolkata</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2017 – 2020</div>
+        <h4>Diploma in Computer Science & Engineering</h4>
+        <p>Government Polytechnic, Adityapur</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2017</div>
+        <h4>Higher Secondary (12th Grade)</h4>
+        <p>Pitts Modern School, Gomia</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2015</div>
+        <h4>Matriculation (10th Grade)</h4>
+        <p>Pitts Modern School, Gomia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <p class="section-label">04 — Work</p>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-card reveal">
+      <div class="exp-icon"><i class="fas fa-database"></i></div>
+      <div class="exp-info">
+        <h4>SQL Developer Intern</h4>
+        <div class="exp-meta"><i class="fas fa-building"></i> Central Coalfields Limited &nbsp;·&nbsp; <i class="fas fa-calendar"></i> Oct 2019 – Nov 2019</div>
+        <p>Worked on SQL database management and query optimization during the internship program at one of India's leading coal producers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="reveal">
+      <p class="section-label">05 — Recognition</p>
+      <h2 class="section-title">Achievements</h2>
+    </div>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-icon">🎯</div>
+        <h4>eLitmus Assessment</h4>
+        <p>Scored 92 Percentile in national-level hiring assessment</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">📊</div>
+        <h4>CoCubes Assessment</h4>
+        <p>Scored 590 in the CoCubes national employability test</p>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">💻</div>
+        <h4>GeeksforGeeks</h4>
+        <p>550+ Coding Score · Institute Rank #58</p>
+        <a href="https://www.geeksforgeeks.org/user/_ajay_singh/" target="_blank" style="color: var(--accent); font-size:0.75rem; text-decoration: none; display: inline-block; margin-top: 0.5rem;">View Profile →</a>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🎖️</div>
+        <h4>NCC Training</h4>
+        <p>Rank: Cadet · Obtained NCC 'A' Certificate, trained at Old Army School, Ranchi</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="reveal">
+      <p class="section-label">06 — Credentials</p>
+      <h2 class="section-title">Certifications</h2>
+    </div>
+    <div class="cert-list reveal">
+      <a href="#" class="cert-item">
+        <i class="fas fa-certificate"></i>
+        <span>Web Development</span>
+        <i class="fas fa-arrow-right cert-arrow"></i>
+      </a>
+      <a href="#" class="cert-item">
+        <i class="fas fa-certificate"></i>
+        <span>Spring Boot</span>
+        <i class="fas fa-arrow-right cert-arrow"></i>
+      </a>
+      <a href="#" class="cert-item">
+        <i class="fas fa-certificate"></i>
+        <span>Microservices</span>
+        <i class="fas fa-arrow-right cert-arrow"></i>
+      </a>
+      <a href="#" class="cert-item">
+        <i class="fas fa-certificate"></i>
+        <span>MySQL</span>
+        <i class="fas fa-arrow-right cert-arrow"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">07 — Let's Talk</p>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-wrapper reveal">
+      <h3>Open to Opportunities 🚀</h3>
+      <p>Whether it's a full-time role, freelance project, or just a quick hello — my inbox is always open.</p>
+      <div class="contact-links">
+        <a href="mailto:ajaykr29898@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> ajaykr29898@gmail.com</a>
+        <a href="https://github.com/Ajay29898" target="_blank" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.linkedin.com/in/ajay-singh-8724282b8/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a href="tel:+919110992828" class="btn btn-outline"><i class="fas fa-phone-alt"></i> +91 9110992828</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Designed & Built by <span style="color:var(--accent)">Ajay Kumar Singh</span> · 2025</p>
+  </footer>
+
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Stagger children in grids
+    document.querySelectorAll('.skills-grid, .ach-grid').forEach(grid => {
+      grid.querySelectorAll('.reveal').forEach((card, i) => {
+        card.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+  </script>
 </body>
 </html>
